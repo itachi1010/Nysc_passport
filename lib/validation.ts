@@ -1,7 +1,23 @@
-export function cleanName(v:string){return v.trim().replace(/\s+/g,' ').toUpperCase()}
-export function validName(v:string){return /^[A-Z][A-Z '\-]{1,80}$/.test(cleanName(v))}
-export function validStateCode(v:string){return /^[A-Z]{2}\d{4}[A-Z]$/.test(v.trim().toUpperCase())}
-export function validFileNumber(v:string){return /^\d{1,6}$/.test(v.trim())}
-export function validPhone(v:string){return /^(0[789][01]\d{8}|\+234[789][01]\d{8})$/.test(v.trim())}
-export function safeFilenamePart(v:string){return cleanName(v).replace(/[^A-Z0-9 '\-]/g,'').trim()}
-export function finalFilename(name:string,stateCode:string,fileNumber:string,phone:string,ext='.JPG'){return `${safeFilenamePart(name)} ${stateCode.toUpperCase()}=${fileNumber}= ${phone}${ext.toUpperCase()}`}
+export function validName(name: string) {
+  return /^[A-Z\s'-]+$/i.test(name);
+}
+
+export function validStateCode(code: string) {
+  return /^[A-Z]{2}\d{4}[A-Z]$/.test(code);
+}
+
+export function validFileNumber(num: string) {
+  return /^\d+$/.test(num);
+}
+
+export function validPhone(phone: string) {
+  return /^(\+234|0)[789][01]\d{8}$/.test(phone);
+}
+
+export function cleanName(name: string) {
+  return name.trim().toUpperCase();
+}
+
+export function finalFilename(data: any) {
+  return `${data.name} ${data.stateCode}=${data.fileNumber}= ${data.phone}.JPG`;
+}
